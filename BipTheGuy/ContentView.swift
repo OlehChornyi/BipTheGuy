@@ -10,7 +10,8 @@ import AVFAudio
 
 struct ContentView: View {
     @State private var audioPlayer: AVAudioPlayer!
-    
+//    @State private var scale = 1.0
+        @State private var animateImage = true
     var body: some View {
         VStack {
             Spacer()
@@ -18,9 +19,17 @@ struct ContentView: View {
             Image("clown")
                 .resizable()
                 .scaledToFit()
+//                .scaleEffect(scale)
+                .scaleEffect(animateImage ? 1.0 : 0.9)
                 .onTapGesture {
                     playSound(soundName: "punchSound")
+//                    scale = scale + 0.1
+                    animateImage = false
+                    withAnimation (.spring(duration: 0.3, bounce: 0.3)) {
+                        animateImage = true
+                    }
                 }
+//                .animation(.spring(response: 0.3, dampingFraction: 0.3), value: scale)
             
             Spacer()
             
